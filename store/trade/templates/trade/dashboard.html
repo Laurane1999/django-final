@@ -1,0 +1,80 @@
+{% extends 'trade/base.html' %}
+
+{% block content %}
+<h2>📊 Dashboard Admin</h2>
+
+<div class="row mt-4">
+    <a href="{% url 'main_dashboard' %}" class="btn btn-secondary mt-3">⬅ Retour Dashboard</a>
+
+
+    <!-- Statistiques générales -->
+    <div class="col-md-3">
+        <div class="card bg-primary text-white p-3 mb-3">
+            <h5>Total ventes</h5>
+            <h3>{{ total_ventes }} $</h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white p-3 mb-3">
+            <h5>Total commandes</h5>
+            <h3>{{ total_commandes }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-white p-3 mb-3">
+            <h5>Total produits</h5>
+            <h3>{{ total_produits }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-danger text-white p-3 mb-3">
+            <h5>Total catégories</h5>
+            <h3>{{ total_categories }}</h3>
+        </div>
+    </div>
+
+</div>
+
+<!-- Produits à faible stock -->
+<h4 class="mt-4">⚠️ Produits à faible stock</h4>
+{% if produits_faible_stock %}
+<ul class="list-group mb-3">
+    {% for product in produits_faible_stock %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ product.name }} ({{ product.stock }} restant)
+        <a href="{% url 'admin:trade_product_change' product.id %}" class="btn btn-sm btn-primary">Modifier</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Tous les produits ont suffisamment de stock.</p>
+{% endif %}
+
+<!-- Commandes récentes -->
+<h4 class="mt-4">📦 Commandes récentes</h4>
+{% if commandes_recentes %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Montant</th>
+            <th>Date</th>
+            <th>Détails</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in commandes_recentes %}
+        <tr>
+            <td>{{ order.full_name }}</td>
+            <td>{{ order.total_amount }} $</td>
+            <td>{{ order.created_at|date:"d/m/Y H:i" }}</td>
+            <td><a href="{% url 'admin:trade_order_change' order.id %}" class="btn btn-sm btn-info">Voir</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Aucune commande récente.</p>
+{% endif %}
+
+{% endblock %}

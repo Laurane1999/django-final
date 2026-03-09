@@ -1,0 +1,108 @@
+{% extends 'trade/base.html' %}
+{% block content %}
+
+<div class="order-history-container">
+    <h2>Mes commandes</h2>
+
+    <!-- Bouton retour -->
+     <div class="btn-container">
+    <a href="{% url 'home' %}" class="btn btn-primary btn-order-history">Retour à l'accueil</a>
+     </div>
+    {% if orders %}
+        {% for order in orders %}
+            <div class="order-card">
+                <div class="order-header">
+                    Commande #{{ order.id }} - Total: {{ order.total_amount }}€ - Dat: {{ order.created_at|date:"d M Y H:i" }}
+                </div>
+                <ul class="order-items">
+                    {% for item in order.orderitem_set.all %}
+                        <li>{{ item.product.name }} x {{ item.quantity }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="empty-order">Ou poko fè okenn commande.</p>
+    {% endif %}
+</div>
+
+<style>
+/* --- Styles spécifiques pour order_history --- */
+.order-history-container {
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.order-history-container h2 {
+    text-align: center;
+    color: #2f3640;
+    margin-bottom: 25px;
+}
+
+.btn-order-history {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #1e90ff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-order-history:hover {
+    background-color: #0b71d0;
+}
+
+.order-card {
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+}
+
+.order-header {
+    font-weight: bold;
+    color: #2f3640;
+    margin-bottom: 10px;
+}
+
+.order-items {
+    list-style: none;
+    padding-left: 0;
+}
+
+.order-items li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-items li:last-child {
+    border-bottom: none;
+}
+
+.empty-order {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin-top: 30px;
+}
+
+.btn-container {
+    text-align: center; /* Santre kontni an */
+    margin-bottom: 20px; /* Espace anba bouton an */
+}
+
+
+
+
+</style>
+
+{% endblock %}

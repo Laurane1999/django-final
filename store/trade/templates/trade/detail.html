@@ -1,0 +1,27 @@
+{% extends 'trade/base.html' %}
+{% block content %}
+<h2>{{ product.name }}</h2>
+<img src="{{ product.image.url }}" width="300">
+<p>{{ product.description }}</p>
+<h4>{{ product.price }} $</h4>
+<a href="{% url 'add_to_cart' product.id %}" class="btn btn-success">
+    🛒 Ajouter au panier
+</a>
+<hr>
+<h3>Produits similaires</h3>
+<div class="row">
+{% for p in related_products %}
+<div class="col-md-3">
+    <a href="{% url 'detail' p.id %}">
+        <img src="{{ p.image.url }}" width="150">
+        <p>{{ p.name }}</p>
+        <p>{{ p.price }}$</p>
+    </a>
+    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success">
+        🛒 Ajouter au panier
+    </a> 
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}

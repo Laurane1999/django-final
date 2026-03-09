@@ -1,0 +1,9 @@
+{% extends 'trade/base.html' %}
+{% block content %}
+<h2>Créer un compte</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success">S’inscrire</button>
+</form>
+{% endblock %}

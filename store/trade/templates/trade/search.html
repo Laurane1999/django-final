@@ -1,0 +1,14 @@
+<h2>Résultats pour "{{ query }}"</h2>
+<div class="row">
+{% for product in products %}
+<div class="col-md-3">
+    <div class="card mb-4">
+        <img src="{{ product.image.url }}" class="card-img-top">
+        <div class="card-body">
+            <h6>{{ product.name }}</h6>
+            <p>{{ product.price }} $</p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>

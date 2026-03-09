@@ -1,0 +1,28 @@
+{% extends 'trade/base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">⚙️ Tableau de bord Admin</h2>
+
+    <div class="list-group" style="max-width:400px;">
+        <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action">
+            📊 Dashboard des ventes
+        </a>
+
+        <a href="{% url 'product_dashboard' %}" class="list-group-item list-group-item-action">
+            📦 Gestion des produits
+        </a>
+        <a href="{% url 'users_list' %}" class="list-group-item list-group-item-action">
+            👤 Gestion des utilisateurs
+        </a>
+
+        <a href="/admin/" class="list-group-item list-group-item-action">
+            🔐 Admin Django complet
+        </a>
+        <a href="{% url 'category_dashboard' %}" class="list-group-item list-group-item-action">
+            🗂 Gestion des catégories
+        </a>
+    </div>
+</div>
+
+{% endblock %}
